@@ -11,6 +11,4 @@ source :url => "https://github.com/APItools/monitor/archive/#{version}.tar.gz",
 
 build do
   command ["cp -r . #{install_dir}/release" ]
-#  command ["cp /home/rgrau/workspace/slug/config/supervisor.conf /etc/supervisor/apitools.conf" ]
-
 end

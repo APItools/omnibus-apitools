@@ -20,7 +20,7 @@ platforms:
     run_list: apt::default
 
 suites:
-  - name: default
+  - name: apitools
     run_list:
       - omnibus::default
       - unzip
