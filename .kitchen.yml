@@ -1,0 +1,32 @@
+driver:
+  name: vagrant
+  customize:
+    cpus: 2
+    memory: 2048
+  synced_folders:
+    - ['.', '/home/vagrant/apitools-monitor']
+
+provisioner:
+  require_chef_omnibus: true
+
+platforms:
+  - name: ubuntu-13.04
+    run_list: apt::default
+  - name: ubuntu-12.04
+    run_list: apt::default
+  - name: debian-7.2.0
+    run_list: apt::default
+  - name: debian-6.0.8
+    run_list: apt::default
+
+suites:
+  - name: default
+    run_list:
+      - omnibus::default
+      - unzip
+      - omnibus-sbin-path
+    attributes:
+      omnibus:
+        build_user:  vagrant
+        build_dir:   /home/vagrant/apitools-monitor
+        install_dir: /opt/apitools-monitor

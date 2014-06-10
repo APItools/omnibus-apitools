@@ -1,0 +1,9 @@
+#!/bin/bash
+#
+# Perform necessary apitools-monitor removal steps
+# after package is uninstalled.
+#
+
+echo "apitools-monitor has been uninstalled!"
+
+exit 0

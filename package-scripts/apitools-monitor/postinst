@@ -1,0 +1,39 @@
+#!/bin/bash
+#
+# Perform necessary apitools-monitor setup steps
+# after package is installed.
+#
+
+PROGNAME=$(basename $0)
+
+function error_exit
+{
+  echo "${PROGNAME}: ${1:-"Unknown Error"}" 1>&2
+  exit 1
+}
+
+# ln -s "/usr/bin/${PROGNAME}" "/opt/apitools-monitor/script"
+mkdir -p /etc/supervisor/conf.d
+mkdir -p /var/tmp/apitools/monitor
+mkdir -p /var/log/apitools/monitor
+mkdir -p /var/run/apitools/
+
+mkdir -p /opt/apitools-monitor/release/logs
+
+CONFIG=/etc/supervisor/conf.d/apitools.conf
+
+# TODO: this should rather create a symling to /opt/apitools-monitor/etc
+
+if [[ ! -f ${CONFIG} ]]; then
+    cat >${CONFIG} <<EOF
+[program:openresty]
+command=/opt/apitools-monitor/embedded/sbin/nginx -p /opt/apitools-monitor/release/ -c config/nginx.conf
+environment=SLUG_REDIS_HOST="127.0.0.1",SLUG_REDIS_PORT="6379"
+autorestart=true
+EOF
+
+fi
+
+echo "Thank you for installing apitools-monitor!"
+
+exit 0
