@@ -2,8 +2,8 @@ require 'json'
 require 'pathname'
 
 task :packages do
-	pkg = Pathname('pkg')
-	metadata = Pathname.glob(pkg.join '*.metadata.json')
+	pkgs = Pathname('pkg')
+	metadata = Pathname.glob(pkgs.join '*.metadata.json')
 
 	packages = Pathname('packages').tap(&:mkpath)
 
@@ -11,8 +11,12 @@ task :packages do
 		mt = JSON.parse(file.read) 
 		platform, platform_version, basename = mt.values_at('platform', 'platform_version', 'basename')
 		output = packages.join(platform, platform_version).tap(&:mkpath)
-		package = Pathname(pkg.join basename)
-		package.rename(output.join(basename))
-		file.unlink
+		pkg = Pathname(pkgs.join basename)
+		package = output.join(basename)
+		pkg.rename(package)
+		latest = output.join('latest')
+		latest.unlink if latest.symlink?
+		latest.make_symlink(package)
+		file.rename(package.to_s + '.metadata.json')
 	end
 end
