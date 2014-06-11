@@ -16,7 +16,7 @@ task :packages do
 		pkg.rename(package)
 		latest = output.join('latest')
 		latest.unlink if latest.symlink?
-		latest.make_symlink(package)
+		latest.make_symlink(package.expand_path)
 		file.rename(package.to_s + '.metadata.json')
 	end
 end

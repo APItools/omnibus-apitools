@@ -21,3 +21,5 @@ install:
 login:
 	echo "Run: cd apitools-monitor && make"
 
+s3:
+	s3cmd --human-readable-sizes --follow-symlinks --acl-public --access_key=$(ACCESS_KEY) --secret_key=$(SECRET_KEY) sync packages s3://repository.apitools.com.us-east-1
