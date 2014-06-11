@@ -14,7 +14,7 @@ task :packages do
 		pkg = Pathname(pkgs.join basename)
 		package = output.join(basename)
 		pkg.rename(package)
-		latest = output.join('latest')
+		latest = output.join("latest.#{package.extname}")
 		latest.unlink if latest.symlink?
 		latest.make_symlink(package.expand_path)
 		file.rename(package.to_s + '.metadata.json')
