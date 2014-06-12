@@ -1,5 +1,5 @@
 MACHINES=$(shell bin/kitchen list -b 2> /dev/null)
-LOG=debug
+LOG_LEVEL=debug
 S3_REPO=apitoolsrepo
 
 default: converge all
@@ -8,16 +8,23 @@ all: build
 build: $(MACHINES)
 
 converge:
+	bin/kitchen create all
 	bin/kitchen converge all
 
 $(MACHINES): % :
-	bin/kitchen exec $@ -c 'cd apitools-monitor && make omnibus'
+	bin/kitchen exec $@ -c 'bash -lc "cd apitools-monitor && make omnibus"'
 
-omnibus: install
-	bash -cl 'bin/omnibus build apitools-monitor -l=$(LOG)'
+clean:
+	rm -rf /var/cache/omnibus/pkg/
+	# bin/omnibus clean apitools-monitor -l=$(LOG_LEVEL)
+omnibus: install clean
+	bin/omnibus build apitools-monitor -l=$(LOG_LEVEL)
 
-install:
-	bash -cl 'bundle install --binstubs'
+clean-ccache:
+	sudo rm -rf $(HOME)/.ccache
+
+install: clean-ccache
+	bundle install --binstubs
 
 login:
 	echo "Run: cd apitools-monitor && make"
