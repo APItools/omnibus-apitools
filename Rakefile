@@ -1,22 +1,31 @@
 require 'json'
 require 'pathname'
+require 'package_cloud'
 
 task :packages do
-	pkgs = Pathname('pkg')
-	metadata = Pathname.glob(pkgs.join '*.metadata.json')
+  config = PackageCloud::ConfigFile.new
+  config.read_or_create
+  client = PackageCloud::Client.new(config)
+  distributions = client.distributions
 
-	packages = Pathname('packages').tap(&:mkpath)
+  pkgs = Pathname('pkg')
+  metadata = Pathname.glob(pkgs.join '*.metadata.json')
 
-	metadata.each do |file|
-		mt = JSON.parse(file.read) 
-		platform, platform_version, basename = mt.values_at('platform', 'platform_version', 'basename')
-		output = packages.join(platform, platform_version).tap(&:mkpath)
-		pkg = Pathname(pkgs.join basename)
-		package = output.join(basename)
-		pkg.rename(package)
-		latest = output.join("latest.#{package.extname}")
-		latest.unlink if latest.symlink?
-		latest.make_symlink(package.expand_path)
-		file.rename(package.to_s + '.metadata.json')
-	end
+  packages = Pathname('packages').tap(&:mkpath)
+
+  metadata.each do |file|
+    mt = JSON.parse(file.read)
+    platform, platform_version, basename = mt.values_at('platform', 'platform_version', 'basename')
+    platform_version += '.0' if platform_version =~ /^\d$/
+    platform_name = distributions
+      .fetch(File.extname(basename).delete('.'))
+      .find{|dist| dist['index_name'] == platform }
+      .fetch('versions')
+      .find{|v| v['version_number'] == platform_version }
+      .fetch('index_name')
+
+    pkg = pkgs.join(basename)
+
+    system("package_cloud push apitools/monitor/#{platform}/#{platform_name} #{pkg}")
+  end
 end

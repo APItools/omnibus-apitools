@@ -16,14 +16,14 @@
 #
 
 name "apitools-openresty"
-default_version "1.5.12.1"
+default_version "1.7.2.1"
 
 dependency "pcre"
 dependency "openssl"
 dependency "zlib"
 
 source :url => "http://openresty.org/download/ngx_openresty-#{version}.tar.gz",
-       :md5 => "873a9072f4d3771a35016d53b932caa1"
+       :md5 => "8db3705aa959f20d02d2161d88a414d5"
 
 relative_path "ngx_openresty-#{version}"
 

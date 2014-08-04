@@ -4,6 +4,8 @@ source 'https://rubygems.org'
 gem 'omnibus', '~> 3.1'
 gem 'omnibus-software', github: 'opscode/omnibus-software'
 
+gem 'package_cloud'
+
 group :kitchen do
   # Use Berkshelf for resolving cookbook dependencies
   gem 'berkshelf', '~> 3.0'
