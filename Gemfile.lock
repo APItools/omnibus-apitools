@@ -1,8 +1,9 @@
 GIT
   remote: git://github.com/opscode/omnibus-software.git
-  revision: 7eb0998979dffb2c5cb5b7ff272d55ab9fdb8009
+  revision: 3a69fdd93985934362bced445924089156907297
+  branch: omnibus/3.2-stable
   specs:
-    omnibus-software (4.0.0)
+    omnibus-software (3.0.0)
 
 GIT
   remote: git://github.com/test-kitchen/test-kitchen.git
