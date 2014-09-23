@@ -1,4 +1,5 @@
 name 'apitools-lua'
+default_version '0.0.1'
 
 source :url => "http://luarocks.org/releases/luarocks-2.1.2.tar.gz",
        :md5 => "0afc5fd6ee6ec6128fccda1bc559f41e"

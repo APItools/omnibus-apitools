@@ -2,6 +2,7 @@ require 'json'
 require 'pathname'
 require 'package_cloud'
 
+desc 'push packages to packagecloud.io'
 task :packages do
   config = PackageCloud::ConfigFile.new
   config.read_or_create
@@ -10,8 +11,6 @@ task :packages do
 
   pkgs = Pathname('pkg')
   metadata = Pathname.glob(pkgs.join '*.metadata.json')
-
-  packages = Pathname('packages').tap(&:mkpath)
 
   metadata.each do |file|
     mt = JSON.parse(file.read)

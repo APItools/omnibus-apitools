@@ -1,5 +1,5 @@
 name 'apitools-release'
-default_version '201408211748'
+default_version '201409231249'
 
 dependency 'apitools-lua'
 # dependency 'supervisor'
@@ -7,7 +7,7 @@ dependency 'apitools-lua'
 relative_path "monitor-#{version}"
 
 source :url => "https://github.com/APItools/monitor/archive/#{version}.tar.gz",
-       :md5 => "8cdcd8768dc4c20c7df6ba09e48c6155"
+       :md5 => "ab06ec6c192d97aff25d28e695051f45"
 
 build do
   command ["cp -r . #{install_dir}/release" ]
