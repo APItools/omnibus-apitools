@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 
 # Install omnibus software
-gem 'omnibus', '~> 3.1'
-gem 'omnibus-software', github: 'APItools/omnibus-software', branch: 'omnibus/3.2-stable'
+gem 'omnibus', '~> 4.0.rc'
+gem 'omnibus-software', github: 'opscode/omnibus-software', branch: 'master'
 
 gem 'package_cloud'
 
