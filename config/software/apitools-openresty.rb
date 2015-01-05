@@ -42,10 +42,11 @@ build do
   # "install_dir" is exposed and refers to the top-level projects +install_dir+
   command ["./configure",
            "--prefix=#{install_dir}/embedded",
+           "--sbin-path=#{install_dir}/sbin/nginx",
            # Building Nginx with non-system OpenSSL
            # http://www.ruby-forum.com/topic/207287#902308
-           "--with-ld-opt=\"-L#{install_dir}/embedded/lib -Wl,-rpath,#{install_dir}/embedded/lib -lssl -lcrypto -ldl -lz\"",
-           "--with-cc-opt=\"-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include\"",
+           %Q{--with-ld-opt="-L#{install_dir}/embedded/lib -Wl,-rpath,#{install_dir}/embedded/lib -lssl -lcrypto -ldl -lz"},
+           %Q{--with-cc-opt="-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include"},
            '--with-md5-asm',
            '--with-luajit-xcflags=-DLUAJIT_ENABLE_CHECKHOOK',
            '--with-http_gunzip_module',
