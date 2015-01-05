@@ -66,5 +66,5 @@ build do
   # "workers" is a DSL method that returns the most suitable number of
   # builders for the currently running system.
   make "-j #{workers}", env: env
-  make "-j #{workers} install", env: env
+  make 'install', env: env
 end

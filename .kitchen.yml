@@ -27,6 +27,7 @@ suites:
     - omnibus::default
     - unzip
     - omnibus-sbin-path
+    - nodejs::npm
     attributes:
       omnibus:
         build_user:          vagrant
