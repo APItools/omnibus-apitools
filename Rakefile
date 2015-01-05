@@ -28,3 +28,11 @@ task :packages do
     system("package_cloud push apitools/monitor/#{platform}/#{platform_name} #{pkg}")
   end
 end
+
+task :build do
+  exec('omnibus', 'build', 'apitools-monitor', '--log-level=internal')
+end
+
+task test: :build
+
+task default: :test
