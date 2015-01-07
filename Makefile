@@ -12,7 +12,7 @@ converge:
 	bin/kitchen converge all
 
 $(MACHINES): % :
-	bin/kitchen exec $@ -c 'bash -lc "cd apitools-monitor && make omnibus"'
+	bin/kitchen exec $@ -c 'sudo bash -lc "cd apitools-monitor && make omnibus"'
 
 clean:
 	rm -rf /var/cache/omnibus/pkg/
