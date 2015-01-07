@@ -24,7 +24,7 @@ clean-ccache:
 	sudo rm -rf $(HOME)/.ccache
 
 install: clean-ccache
-	bundle install --binstubs
+	bundle install
 
 login:
 	echo "Run: cd apitools-monitor && make"
