@@ -1,6 +1,7 @@
 language: ruby
 env:
   rvmsudo_secure_path: 1
+  omnibus_workers: 3
 before_install:
 - git config --global user.name "OmniBus"
 - git config --global user.email "omnibus@example.com"

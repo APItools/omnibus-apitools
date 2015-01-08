@@ -14,6 +14,8 @@
 # +/opt/apitools-monitor+
 #
 
+workers(ENV.fetch('OMNIBUS_WORKERS'){ workers })
+
 # Enable S3 asset caching
 # ------------------------------
 # use_s3_caching true
