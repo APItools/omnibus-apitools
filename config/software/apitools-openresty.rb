@@ -68,4 +68,7 @@ build do
   # builders for the currently running system.
   make "-j #{workers}", env: env
   make 'install', env: env
+
+  command "ln -s #{install_dir}/embedded/luajit/bin/lua #{install_dir}/embedded/bin/lua"
+  command "ln -s #{install_dir}/embedded/luajit/bin/lua #{install_dir}/embedded/bin/luajit"
 end

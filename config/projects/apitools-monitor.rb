@@ -23,8 +23,7 @@ dependency 'apitools-release'
 # runtime_dependency 'luarocks'
 
 package 'deb' do
-
-  '--deb-recommends redis-server --deb-recommends supervisor'
+  # '--deb-recommends redis-server --deb-recommends supervisor'
 end
 
 # version manifest file
@@ -32,3 +31,5 @@ dependency 'version-manifest'
 
 exclude '**/.git'
 exclude '**/bundler/git'
+exclude 'embedded/man'
+exclude 'share'
