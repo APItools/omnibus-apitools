@@ -9,5 +9,7 @@ cookbook 'perl'
 cookbook 'unzip', github: 'APItools/chef-unzip'
 cookbook 'omnibus-sbin-path', github: 'APItools/chef-omnibus-sbin-path'
 
+cookbook 'nodejs', github: 'redguide/nodejs'
+
 # Uncomment to use the latest version of the Omnibus cookbook from GitHub
 # cookbook 'omnibus', github: 'opscode-cookbooks/omnibus'

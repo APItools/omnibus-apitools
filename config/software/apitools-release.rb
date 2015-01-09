@@ -1,14 +1,15 @@
 name 'apitools-release'
-default_version '201408211748'
 
 dependency 'apitools-lua'
 # dependency 'supervisor'
 
-relative_path "monitor-#{version}"
+relative_path 'release'
 
-source :url => "https://github.com/APItools/monitor/archive/#{version}.tar.gz",
-       :md5 => "8cdcd8768dc4c20c7df6ba09e48c6155"
+source git: 'https://github.com/APItools/monitor'
+default_version '201501051710'
 
 build do
-  command ["cp -r . #{install_dir}/release" ]
+  command 'bundle install --without test'
+  command 'rake release -- -y'
+  copy 'release', File.join(install_dir, 'release')
 end

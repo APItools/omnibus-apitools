@@ -13,12 +13,8 @@
 # project configuration to build at +./local/omnibus/build+ instead of
 # +/opt/apitools-monitor+
 #
-# cache_dir              './local/omnibus/cache'
-# install_path_cache_dir './local/omnibus/cache/install_path'
-#source_dir             './local/omnibus/src'
-#build_dir              './local/omnibus/build'
-#package_dir            './local/omnibus/pkg'
-#package_tmp            './local/omnibus/pkg-tmp'
+
+workers(ENV.fetch('OMNIBUS_WORKERS'){ workers })
 
 # Enable S3 asset caching
 # ------------------------------

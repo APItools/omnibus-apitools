@@ -1,0 +1,14 @@
+language: ruby
+env:
+  rvmsudo_secure_path: 1
+  omnibus_workers: 3
+before_install:
+- git config --global user.name "OmniBus"
+- git config --global user.email "omnibus@example.com"
+rvm:
+- 2.1
+script:
+- rvmsudo bundle exec omnibus build apitools-monitor
+- sudo dpkg -i pkg/apitools-monitor_*.deb
+- sudo apt-get install supervisor redis-server
+- curl localhost:7071

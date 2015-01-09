@@ -1,6 +1,5 @@
 #
-# Copyright:: Copyright (c) 2012-2014 Chef Software, Inc.
-# License:: Apache License, Version 2.0
+# Copyright 2014 3scale
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,54 +14,61 @@
 # limitations under the License.
 #
 
-name "apitools-openresty"
-default_version "1.7.2.1"
+# These options are required for all software definitions
 
-dependency "pcre"
-dependency "openssl"
-dependency "zlib"
+name 'apitools-openresty'
+default_version '1.7.4.1'
 
-source :url => "http://openresty.org/download/ngx_openresty-#{version}.tar.gz",
-       :md5 => "8db3705aa959f20d02d2161d88a414d5"
+# A software can specify more than one version that is available for install
+version('1.7.4.1') { source md5: "e4b10833beb0fc8e14dbe1ba6af3126e" }
+
+source url: "http://openresty.org/download/ngx_openresty-#{version}.tar.gz"
 
 relative_path "ngx_openresty-#{version}"
 
-build do
-  env = {
-    "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-    "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-    "LD_RUN_PATH" => "#{install_dir}/embedded/lib"
-  }
+dependency 'pcre'
+dependency 'openssl'
+dependency 'zlib'
 
+build do
+  # Setup a default environment from Omnibus - you should use this Omnibus
+  # helper everywhere. It will become the default in the future.
+  env = with_standard_compiler_flags(with_embedded_path)
+
+  # "command" is part of the build DSL. There are a number of handy options
+  # available, such as "copy", "sync", "ruby", etc. For a complete list, please
+  # consult the Omnibus gem documentation.
+  #
+  # "install_dir" is exposed and refers to the top-level projects +install_dir+
   command ["./configure",
            "--prefix=#{install_dir}/embedded",
-           "--sbin-path=#{install_dir}/embedded/sbin/nginx",
-           "--conf-path=#{install_dir}/embedded/conf/nginx.conf",
+           "--sbin-path=#{install_dir}/sbin/nginx",
            # Building Nginx with non-system OpenSSL
            # http://www.ruby-forum.com/topic/207287#902308
-           "--with-ld-opt=\"-L#{install_dir}/embedded/lib -Wl,-rpath,#{install_dir}/embedded/lib -lssl -lcrypto -ldl -lz\"",
-           "--with-cc-opt=\"-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include\"",
-           # Options inspired by the OpenResty Cookbook
+           %Q{--with-ld-opt="-L#{install_dir}/embedded/lib -Wl,-rpath,#{install_dir}/embedded/lib -lssl -lcrypto -ldl -lz"},
+           %Q{--with-cc-opt="-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include"},
            '--with-md5-asm',
-           "--with-luajit-xcflags=-DLUAJIT_ENABLE_CHECKHOOK",
+           '--with-luajit-xcflags=-DLUAJIT_ENABLE_CHECKHOOK',
            '--with-http_gunzip_module',
            '--with-sha1-asm',
            '--with-pcre-jit',
            '--with-luajit',
-           "--without-http_fastcgi_module",
-           "--without-http_uwsgi_module",
-           "--without-http_scgi_module",
+           '--without-http_fastcgi_module',
+           '--without-http_uwsgi_module',
+           '--without-http_scgi_module',
            '--without-http_ssi_module',
            '--without-mail_smtp_module',
            '--without-mail_imap_module',
-           '--without-mail_pop3_module',
-           # AIO support define in Openresty cookbook. Requires Kernel >= 2.6.22
-           # Ubuntu 10.04 reports: 2.6.32-38-server #83-Ubuntu SMP
-           # However, they require libatomic-ops-dev and libaio
-           #'--with-file-aio',
-           #'--with-libatomic'
-          ].join(" "), :env => env
+           '--without-mail_pop3_module',].join(' '), env: env
 
-  command "make -j #{max_build_jobs}", :env => env
-  command "make install"
+  # You can have multiple steps - they are executed in the order in which they
+  # are read.
+  #
+  # "workers" is a DSL method that returns the most suitable number of
+  # builders for the currently running system.
+  make "-j #{workers}", env: env
+  make 'install', env: env
+
+  command "ln -s #{install_dir}/embedded/luajit/bin/lua #{install_dir}/embedded/bin/lua"
+  command "ln -s #{install_dir}/embedded/luajit/bin/lua #{install_dir}/embedded/bin/luajit"
 end

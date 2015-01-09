@@ -1,9 +1,9 @@
 *.gem
 local/*
 .bundle
+vendor/bundle
 .kitchen/
 .kitchen.local.yml
-vendor/bundle
 pkg/*
 .vagrant
 bin/*

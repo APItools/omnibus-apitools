@@ -27,7 +27,7 @@ CONFIG=/etc/supervisor/conf.d/apitools.conf
 if [[ ! -f ${CONFIG} ]]; then
     cat >${CONFIG} <<EOF
 [program:openresty]
-command=/opt/apitools-monitor/embedded/sbin/nginx -p /opt/apitools-monitor/release/ -c config/nginx.conf
+command=/opt/apitools-monitor/sbin/nginx -p /opt/apitools-monitor/release/ -c config/nginx.conf
 environment=SLUG_REDIS_HOST="127.0.0.1",SLUG_REDIS_PORT="6379"
 autorestart=true
 EOF

@@ -1,5 +1,6 @@
 driver:
   name: vagrant
+  forward_agent: yes
   customize:
     cpus: 4
     memory: 2048
@@ -7,29 +8,28 @@ driver:
     - ['.', '/home/vagrant/apitools-monitor']
 
 provisioner:
-  require_chef_omnibus: true
-  name: chef_solo
-  solo_rb:
-      ssl_verify_mode: verify_peer
+  name: chef_zero
+  require_chef_omnibus: 12.0.3
 
 platforms:
   - name: ubuntu-14.04
     run_list: apt::default
   - name: ubuntu-12.04
     run_list: apt::default
+  # - name: debian-8.0.0
+  #  run_list: apt::default
   - name: debian-7.2.0
-    run_list: apt::default
-  - name: debian-6.0.8
     run_list: apt::default
 
 suites:
   - name: apitools
     run_list:
-      - omnibus::default
-      - unzip
-      - omnibus-sbin-path
+    - omnibus::default
+    - unzip
+    - omnibus-sbin-path
+    - nodejs::npm
     attributes:
       omnibus:
-        build_user:  vagrant
-        build_dir:   /home/vagrant/apitools-monitor
-        install_dir: /opt/apitools-monitor
+        build_user:          vagrant
+        build_user_group:    vagrant
+        build_user_password: vagrant

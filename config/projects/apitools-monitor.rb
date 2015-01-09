@@ -1,10 +1,15 @@
+#
+# Copyright 2014 3scale
+#
+# All Rights Reserved.
+#
 
 name 'apitools-monitor'
 maintainer '3scale'
 homepage 'http://www.apitools.com'
 
-install_path    '/opt/apitools-monitor'
-build_version   Omnibus::BuildVersion.new.semver
+install_dir "#{default_root}/#{name}"
+build_version Omnibus::BuildVersion.semver
 build_iteration 1
 
 # creates required build directories
@@ -17,11 +22,14 @@ dependency 'apitools-release'
 
 # runtime_dependency 'luarocks'
 
-extra_package_file '--deb-recommends supervisor'
-extra_package_file '--deb-recommends redis-server'
+package 'deb' do
+  # '--deb-recommends redis-server --deb-recommends supervisor'
+end
 
 # version manifest file
 dependency 'version-manifest'
 
-exclude '\.git*'
-exclude 'bundler\/git'
+exclude '**/.git'
+exclude '**/bundler/git'
+exclude 'embedded/man'
+exclude 'share'
