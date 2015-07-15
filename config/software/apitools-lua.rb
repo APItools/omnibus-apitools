@@ -5,7 +5,7 @@ dependency 'expat'
 dependency 'apitools-luarocks'
 
 build do
-  command "#{install_dir}/embedded/bin/luarocks install lpeg"
+  command "#{install_dir}/embedded/bin/luarocks install lpeg 0.12-1"
   command "#{install_dir}/embedded/bin/luarocks install lunit"
   command "#{install_dir}/embedded/bin/luarocks install luasocket"
   command "#{install_dir}/embedded/bin/luarocks install sha2"
