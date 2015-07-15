@@ -6,6 +6,7 @@ cookbook 'apt', '~> 2.0'
 
 cookbook 'omnibus'
 cookbook 'perl'
+cookbook 'gecode'
 cookbook 'unzip', github: 'APItools/chef-unzip'
 cookbook 'omnibus-sbin-path', github: 'APItools/chef-omnibus-sbin-path'
 

@@ -1,5 +1,6 @@
 DEPENDENCIES
   apt (~> 2.0)
+  gecode
   nodejs
     git: git://github.com/redguide/nodejs.git
     revision: 97e0d8591ae02d38bcad761df9322db16b53252d
@@ -22,6 +23,11 @@ GRAPH
   build-essential (2.1.3)
   chef-sugar (2.5.0)
   chef_handler (1.1.6)
+  gecode (2.1.0)
+    apt (>= 0.0.0)
+    build-essential (>= 0.0.0)
+    yum (~> 3.0)
+    yum-epel (>= 0.0.0)
   homebrew (1.10.0)
   nodejs (2.2.1)
     apt (>= 0.0.0)
