@@ -20,6 +20,10 @@ platforms:
   #  run_list: apt::default
   - name: debian-7.2.0
     run_list: apt::default
+  - name: centos-6.6
+    run_list:
+      - yum-epel::default
+      - gecode::default
 
 suites:
   - name: apitools
