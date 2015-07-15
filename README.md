@@ -90,9 +90,10 @@ $ bundle exec kitchen login ubuntu-12.04
 [vagrant@ubuntu...] $ sudo chmod -R a+rwx /opt
 [vagrant@ubuntu...] $ bundle exec bin/omnibus build apitools-monitor
 [vagrant@ubuntu...] $ ...
-[vagrant@ubuntu...] $ cd ~/apitools-monitor/pkg
-[vagrant@ubuntu...] $ gem install package_cloud
-[vagrant@ubuntu...] $ package_cloud push APItools/monitor <your deb or rpm>
+[vagrant@ubuntu...] $ exit
+$ cd pkg
+$ gem install package_cloud
+$ package_cloud push APItools/monitor <your deb or rpm>
 ```
 
 For a complete list of all commands and platforms, run `kitchen list` or
