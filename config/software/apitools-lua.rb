@@ -1,6 +1,9 @@
 name 'apitools-lua'
 default_version '0.0.1'
 
+# locking openresty version breaks the digest and crashes (removes the md5 of source)
+# override :openresty, version: '1.7.4.1'
+
 dependency 'expat'
 dependency 'openresty-luarocks'
 
