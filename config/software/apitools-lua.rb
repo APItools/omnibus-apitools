@@ -2,7 +2,7 @@ name 'apitools-lua'
 default_version '0.0.1'
 
 dependency 'expat'
-dependency 'apitools-luarocks'
+dependency 'openresty-luarocks'
 
 build do
   command "#{install_dir}/embedded/bin/luarocks install lpeg 0.12-1"

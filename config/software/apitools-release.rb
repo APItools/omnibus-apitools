@@ -6,7 +6,7 @@ dependency 'apitools-lua'
 relative_path 'release'
 
 source git: 'https://github.com/APItools/monitor'
-default_version '201501051710'
+default_version '201510141454'
 
 build do
   command 'bundle install --without test'

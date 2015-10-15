@@ -32,3 +32,5 @@ workers(ENV.fetch('OMNIBUS_WORKERS'){ workers })
 # ------------------------------
 # solaris_compiler 'gcc'
 # build_retries 5
+
+software_gems %w[omnibus-software omnibus-openresty]
